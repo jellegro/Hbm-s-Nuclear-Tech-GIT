@@ -96,6 +96,10 @@ public class HbmLivingProps implements IExtendedEntityProperties {
 		if(radiation < 0)
 			radiation = 0;
 
+		// Occultic HBM: generic temp fix
+		if(rad > 0 && !Float.isInfinite(rad))
+			radiation = com.usanaem.occultic_hbm.radiation.RadiationExposureHooks.apply(entity, data.radiation, radiation);
+
 		data.setRadiation(entity, radiation);
 	}
 

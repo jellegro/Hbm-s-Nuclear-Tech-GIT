@@ -114,6 +114,13 @@ dependencies {
 	compileOnly("com.github.MightyPirates:OpenComputers:1.7.10-forge~1.8.9:api") { transitive = false }
 
 	compileOnly("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta.56-GTNH:dev") { transitive = false }
+
+	// Thaumcraft
+	compileOnly("curse.maven:thaumcraft-223628:2227552") { transitive = false }
+
+	// Witchery
+	compileOnly("curse.maven:witchery-69673:2234410") { transitive = false }
+
 }
 
 processResources {
