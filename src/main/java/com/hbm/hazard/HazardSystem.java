@@ -24,6 +24,9 @@ import net.minecraftforge.oredict.OreDictionary;
 @Untested
 public class HazardSystem {
 
+	// HBM-ARCANE: preserve recipient-sensitive modifiers through container flattening. See PATCH-003.
+	private static final ThreadLocal<EntityLivingBase> hazardRecipient = new ThreadLocal<EntityLivingBase>();
+
 	/*
 	 * Map for OreDict entries, always evaluated first. Avoid registering HazardData with 'doesOverride', as internal order is based on the item's ore dict keys.
 	 */
@@ -170,7 +173,7 @@ public class HazardSystem {
 		
 		for(HazardEntry entry : entries) {
 			if(entry.type == hazard) {
-				return HazardModifier.evalAllModifiers(stack, null, entry.baseLevel, entry.mods);
+				return HazardModifier.evalAllModifiers(stack, hazardRecipient.get(), entry.baseLevel, entry.mods);
 			}
 		}
 		
@@ -183,7 +186,15 @@ public class HazardSystem {
 	 * @param entity
 	 */
 	public static void applyHazards(ItemStack stack, EntityLivingBase entity) {
-		List<HazardEntry> hazards = getHazardsFromStack(stack);
+		EntityLivingBase previous = hazardRecipient.get();
+		List<HazardEntry> hazards;
+		hazardRecipient.set(entity);
+		try {
+			hazards = getHazardsFromStack(stack);
+		} finally {
+			if(previous == null) hazardRecipient.remove();
+			else hazardRecipient.set(previous);
+		}
 		
 		for(HazardEntry hazard : hazards) {
 			hazard.applyHazard(stack, entity);

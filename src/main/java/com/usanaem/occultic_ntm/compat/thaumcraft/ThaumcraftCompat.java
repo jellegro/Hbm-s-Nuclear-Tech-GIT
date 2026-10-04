@@ -1,8 +1,8 @@
-package com.usanaem.occultic_hbm.compat.thaumcraft;
+package com.usanaem.occultic_ntm.compat.thaumcraft;
 
 import org.apache.logging.log4j.Logger;
 
-import com.usanaem.occultic_hbm.compat.thaumcraft.catalogue.CatalogueRegistry;
+import com.usanaem.occultic_ntm.compat.thaumcraft.catalogue.CatalogueRegistry;
 
 /** Invoked only after the common bootstrap checks configuration and mod presence. */
 public final class ThaumcraftCompat {

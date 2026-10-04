@@ -1,4 +1,4 @@
-package com.usanaem.occultic_hbm.compat.thaumcraft.catalogue;
+package com.usanaem.occultic_ntm.compat.thaumcraft.catalogue;
 
 import java.util.ArrayList;
 import java.util.Collections;

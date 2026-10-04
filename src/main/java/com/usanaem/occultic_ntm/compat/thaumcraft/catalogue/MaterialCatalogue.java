@@ -1,4 +1,4 @@
-package com.usanaem.occultic_hbm.compat.thaumcraft.catalogue;
+package com.usanaem.occultic_ntm.compat.thaumcraft.catalogue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import com.hbm.inventory.material.MaterialShapes;
 import com.hbm.inventory.material.Mats;
 import com.hbm.inventory.material.NTMMaterial;
 import com.hbm.items.ModItems;
-import static com.usanaem.occultic_hbm.compat.thaumcraft.catalogue.CatalogueHelper.*;
+import static com.usanaem.occultic_ntm.compat.thaumcraft.catalogue.CatalogueHelper.*;
 
 public final class MaterialCatalogue {
 

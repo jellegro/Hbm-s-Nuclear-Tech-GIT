@@ -1,4 +1,4 @@
-package com.usanaem.occultic_hbm.compat.thaumcraft.catalogue;
+package com.usanaem.occultic_ntm.compat.thaumcraft.catalogue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
 /**
- * Master coordinator for the Occultic HBM Thaumcraft 4 aspect catalogue.
+ * Master coordinator for the Occultic NTM Thaumcraft 4 aspect catalogue.
  * Gathers authored aspect compositions across all HBM systems, validates them against
  * registered Thaumcraft aspects, and registers them into ThaumcraftApi.
  */
@@ -81,7 +81,7 @@ public final class CatalogueRegistry {
     public static synchronized void registerAll(Logger logger) {
         if (!built) {
             built = true;
-            logger.info("Building Occultic HBM Thaumcraft aspect catalogue...");
+            logger.info("Building Occultic NTM Thaumcraft aspect catalogue...");
             MaterialCatalogue.register();
             NuclearCatalogue.register();
             MachineCatalogue.register();

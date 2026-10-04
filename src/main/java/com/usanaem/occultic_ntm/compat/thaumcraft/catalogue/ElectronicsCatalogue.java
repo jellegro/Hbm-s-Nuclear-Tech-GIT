@@ -1,7 +1,7 @@
-package com.usanaem.occultic_hbm.compat.thaumcraft.catalogue;
+package com.usanaem.occultic_ntm.compat.thaumcraft.catalogue;
 
 import com.hbm.items.ModItems;
-import static com.usanaem.occultic_hbm.compat.thaumcraft.catalogue.CatalogueHelper.*;
+import static com.usanaem.occultic_ntm.compat.thaumcraft.catalogue.CatalogueHelper.*;
 
 public final class ElectronicsCatalogue {
 

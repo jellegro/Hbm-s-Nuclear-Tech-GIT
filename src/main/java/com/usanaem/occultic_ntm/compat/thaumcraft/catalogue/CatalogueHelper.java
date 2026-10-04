@@ -1,4 +1,4 @@
-package com.usanaem.occultic_hbm.compat.thaumcraft.catalogue;
+package com.usanaem.occultic_ntm.compat.thaumcraft.catalogue;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
