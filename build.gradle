@@ -120,6 +120,15 @@ dependencies {
 
 	// Witchery
 	compileOnly("curse.maven:witchery-69673:2234410") { transitive = false }
+	// Opt-in dev runtime; optional mod jars are never included in the production jar.
+	if (project.hasProperty('withWitchery')) {
+		runtimeOnly("curse.maven:witchery-69673:2234410") { transitive = false }
+	}
+	// UniMixins
+	implementation("com.github.LegacyModdingMC.UniMixins:unimixins-mixin-1.7.10:$unimixinsVersion")
+
+	implementation("com.github.LegacyModdingMC.UniMixins:unimixins-spongemixins-1.7.10:$unimixinsVersion:dev")
+	implementation("com.github.LegacyModdingMC.UniMixins:unimixins-gtnhmixins-1.7.10:$unimixinsVersion:dev")
 
 }
 
@@ -151,9 +160,25 @@ processResources {
 // add AT to meta-inf
 jar {
     manifest {
-        attributes 'FMLAT': 'HBM_at.cfg'
+        attributes 'FMLAT': 'HBM_at.cfg',
+                'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+                'ForceLoadAsMod': 'true',
+                'FMLCorePluginContainsFMLMod': 'true'
     }
 }
+
+// UniMixins' ForgeGradle/Gradle 4 pattern. Witchery targets are queued by the
+// GTNH late loader after ordinary mod jars enter the classpath, never early.
+runClient { args('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker') }
+runServer { args('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker') }
+def mixinSrg = "${tasks.compileJava.temporaryDir}/occultic-mixins.srg"
+def mixinRefmap = "${tasks.compileJava.temporaryDir}/mixins.occultic_ntm.refmap.json"
+compileJava {
+    options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}",
+            "-AoutSrgFile=${mixinSrg}", "-AoutRefMapFile=${mixinRefmap}"]
+}
+jar { from mixinRefmap }
+reobf { addExtraSrgFile mixinSrg }
 
 task sourceJar(type: Jar) {
 	from sourceSets.main.allJava
@@ -166,6 +191,7 @@ task sourceJar(type: Jar) {
 }
 
 task devJar(type: Jar) {
+	from mixinRefmap
 	// hack: artificially depend on the reobf task here to get the normal jar to be overwritten before publishing
 	dependsOn reobf
 
@@ -175,7 +201,10 @@ task devJar(type: Jar) {
 	classifier "dev"
 
 	manifest {
-		attributes 'FMLAT': 'HBM_at.cfg'
+		attributes 'FMLAT': 'HBM_at.cfg',
+				'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+				'ForceLoadAsMod': 'true',
+				'FMLCorePluginContainsFMLMod': 'true'
 	}
 }
 
