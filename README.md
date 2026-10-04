@@ -1,4 +1,19 @@
-# HBM's Nuclear Tech Mod for Minecraft 1.7.10
+# Occultic NTM for Minecraft 1.7.10
+> [!NOTE]
+> I can't think of a better name for this fork. But it might change in the future.
+
+## Occultic NTM compatibility
+This downstream fork requires an externally installed UniMixins 0.3.2 runtime. It does
+not bundle UniMixins or Witchery. Witchery 0.24.1 remains optional. Development
+uses the existing Java 8 / ForgeGradle / Gradle 4 toolchain; add `-PwithWitchery`
+to `runClient` or `runServer` to include Witchery in that development runtime.
+
+Occultic NTM applies optional runtime compatibility patches to extend Witchery's
+existing poppet registration system, without redistributing or changing
+Witchery's distributed files. These patches serve interoperability; Witchery
+remains the property of its respective author(s). The project will respect a
+request from Witchery's original author to remove or alter this compatibility
+behavior. This notice does not grant permission or override Witchery's terms.
 
 [NTM on Modrinth](https://modrinth.com/mod/ntm)
 

@@ -1,0 +1,228 @@
+package com.usanaem.occultic_ntm.compat.thaumcraft.catalogue;
+
+import com.hbm.blocks.ModBlocks;
+import com.hbm.items.ModItems;
+import static com.usanaem.occultic_ntm.compat.thaumcraft.catalogue.CatalogueHelper.*;
+
+public final class WorldCatalogue {
+
+    private WorldCatalogue() { }
+
+    public static void register() {
+        registerStructural();
+        registerHazardsAndDecorations();
+        registerFoodAndFlora();
+        registerSkippedTechnical();
+    }
+
+    private static void registerStructural() {
+        reg(ModBlocks.basalt_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.blast_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.block_fiberglass, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.brick_asbestos, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_asbestos_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_compound, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_compound_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_broken, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_broken_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_cracked, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_cracked_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_marked, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_mossy, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_mossy_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_concrete_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_double_slab, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_ducrete, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_ducrete_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_fire, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_fire_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_forgotten, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_forgotten_lock, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_circle, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_cracked, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_fragile, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_glyph, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_lava, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_mystic, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_ooze, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_jungle_trap, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_light, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_light_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_obsidian, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_obsidian_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_red, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.brick_slab, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.cargo_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.chimney_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.cmb_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.cmb_brick_reinforced, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_asbestos, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_asbestos_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_brick_double_slab, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_brick_slab, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_colored, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_colored_ext, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_double_slab, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_pillar, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_rebar, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_slab, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_smooth, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_smooth_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_super, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.concrete_super_broken, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.depth_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.depth_nether_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.door_bunker, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.door_metal, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.door_office, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.door_red, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.fire_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.glass_ash, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.glass_boron, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.glass_lead, a("vitreus", 3, "tutamen", 2, "radio", 2));
+        reg(ModBlocks.glass_polarized, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.glass_polonium, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.glass_quartz, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.glass_trinitite, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.glass_uranium, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.gneiss_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.ladder_copper, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.ladder_gold, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.ladder_steel, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.ladder_sturdy, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.ladder_titanium, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.large_vehicle_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.lightstone_bricks_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.machine_furnace_brick_off, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.machine_furnace_brick_on, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.meteor_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.meteor_brick_chiseled, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.meteor_brick_cracked, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.meteor_brick_mossy, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.pile_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.qe_sliding_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.reinforced_brick, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.reinforced_brick_stairs, a("terra", 2, "tutamen", 2));
+        reg(ModBlocks.reinforced_glass, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.reinforced_glass_pane, a("vitreus", 2, "tutamen", 1));
+        reg(ModBlocks.round_airlock_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.seal_hatch, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.secure_access_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.silo_hatch, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.silo_hatch_large, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.sliding_blast_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.sliding_seal_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.steel_grate, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.steel_grate_wide, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.steel_scaffold, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.steel_wall, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.struct_scaffold, a("metallum", 2, "tutamen", 1));
+        reg(ModBlocks.trapdoor_steel, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.vault_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+        reg(ModBlocks.water_door, a("machina", 1, "tutamen", 3, "detonatio", 2, "metallum", 2));
+    }
+
+    private static void registerHazardsAndDecorations() {
+        reg(ModBlocks.asphalt_light, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.barbed_wire, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.barbed_wire_acid, a("chemica", 3, "venenum", 3, "perditio", 2));
+        reg(ModBlocks.barbed_wire_fire, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.barbed_wire_poison, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.barbed_wire_ultradeath, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.barbed_wire_wither, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.brick_light, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.brick_light_stairs, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.deco_aluminium, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_asbestos, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_beryllium, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_computer, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_crt, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_emitter, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_lead, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_loot, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_rbmk, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_rbmk_smooth, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_red_copper, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_rusty_steel, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_steel, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_titanium, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_toaster, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.deco_tungsten, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.decon, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.floodlight, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.floodlight_beam, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lamp_demon, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lamp_tritium_blue_off, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lamp_tritium_blue_on, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lamp_tritium_green_off, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lamp_tritium_green_on, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lightstone, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lightstone_bricks_stairs, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.lightstone_tile_stairs, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.machine_siren, a("aer", 2, "electrum", 2, "sensus", 2));
+        reg(ModBlocks.machine_tape_drive, a("vinculum", 2, "metallum", 1));
+        reg(ModBlocks.reinforced_lamp_off, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.reinforced_lamp_on, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.reinforced_light, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.spotlight_beam, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.spotlight_fluoro, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.spotlight_fluoro_off, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.spotlight_halogen, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.spotlight_halogen_off, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.spotlight_incandescent, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.spotlight_incandescent_off, a("lux", 2, "electrum", 2));
+        reg(ModBlocks.tape_recorder, a("vinculum", 2, "metallum", 1));
+    }
+
+    private static void registerFoodAndFlora() {
+        reg(ModItems.can_bepis, a("fames", 2, "victus", 2));
+        reg(ModItems.can_breen, a("fames", 2, "victus", 2));
+        reg(ModItems.can_creature, a("fames", 2, "victus", 2));
+        reg(ModItems.can_empty, a("fames", 2, "victus", 2));
+        reg(ModItems.can_key, a("fames", 2, "victus", 2));
+        reg(ModItems.can_luna, a("fames", 2, "victus", 2));
+        reg(ModItems.can_mrsugar, a("fames", 2, "victus", 2));
+        reg(ModItems.can_mug, a("fames", 2, "victus", 2));
+        reg(ModItems.can_overcharge, a("fames", 2, "victus", 2));
+        reg(ModItems.can_redbomb, a("fames", 2, "victus", 2));
+        reg(ModItems.can_smart, a("fames", 2, "victus", 2));
+        reg(ModItems.canister_empty, a("fames", 2, "victus", 2));
+        reg(ModItems.canister_full, a("fames", 2, "victus", 2));
+        reg(ModItems.canister_napalm, a("fames", 2, "victus", 2));
+        reg(ModItems.canteen_vodka, a("fames", 2, "victus", 2));
+        reg(ModItems.cotton_candy, a("fames", 2, "victus", 2));
+        reg(ModItems.definitelyfood, a("fames", 2, "victus", 2));
+        reg(ModItems.disperser_canister, a("fames", 2, "victus", 2));
+        reg(ModItems.disperser_canister_empty, a("fames", 2, "victus", 2));
+        reg(ModItems.fooditem, a("fames", 2, "victus", 2));
+        reg(ModItems.gem_sodalite, a("fames", 2, "victus", 2));
+        reg(ModItems.gem_volcanic, a("fames", 2, "victus", 2));
+        reg(ModItems.gun_tesla_cannon, a("fames", 2, "victus", 2));
+        reg(ModItems.missile_volcano, a("fames", 2, "victus", 2));
+        reg(ModItems.ore_density_scanner, a("fames", 2, "victus", 2));
+        reg(ModItems.plant_item, a("fames", 2, "victus", 2));
+        reg(ModItems.survey_scanner, a("fames", 2, "victus", 2));
+        reg(ModItems.volcanic_axe, a("fames", 2, "victus", 2));
+        reg(ModItems.volcanic_pickaxe, a("fames", 2, "victus", 2));
+        reg(ModItems.warhead_volcano, a("fames", 2, "victus", 2));
+    }
+
+    private static void registerSkippedTechnical() {
+        skip("block:dummy_block_blast", "Technical/multi-block proxy");
+        skip("block:dummy_plate_compact_launcher", "Technical/multi-block proxy");
+        skip("block:dummy_plate_launch_table", "Technical/multi-block proxy");
+        skip("block:dummy_port_compact_launcher", "Technical/multi-block proxy");
+        skip("block:dummy_port_launch_table", "Technical/multi-block proxy");
+        skip("block:event_tester", "Technical/multi-block proxy");
+        skip("block:obj_tester", "Technical/multi-block proxy");
+        skip("item:ammo_debug", "Debug/test item");
+        skip("item:gas_tester", "Debug/test item");
+        skip("item:gun_debug", "Debug/test item");
+        skip("item:missile_test", "Debug/test item");
+        skip("item:weapon_mod_test", "Debug/test item");
+    }
+}
