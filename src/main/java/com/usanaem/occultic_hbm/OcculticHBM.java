@@ -9,6 +9,7 @@ import com.usanaem.occultic_hbm.registry.OcculticItems;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -33,17 +34,19 @@ public class OcculticHBM {
         logger.info("Occultic HBM bootstrap initialized.");
     }
 
-	// TODO - Fun idea, but doesnt integrate properly yet, why couldn't witchery just provide a public api :/
-//    @EventHandler
-//    public void init(FMLInitializationEvent event) {
-//        if (!OptionalMods.isWitcheryLoaded()) return;
-//        try {
-//            WitcheryCompat.initialize(config, logger);
-//        } catch (LinkageError | RuntimeException error) {
-//            OcculticItems.irradiationPoppet.setProtectionAvailable(false);
-//            logger.error("Irradiation Poppet integration unavailable after a Witchery initialization failure. Earlier registrations, saved items and stored hazards remain.", error);
-//        }
-//    }
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        boolean enabled = config.isThaumcraftIntegrationEnabled();
+        boolean detected = OptionalMods.isThaumcraftLoaded();
+        if (enabled && detected && !thaumcraftIntegrationFailed) {
+            try {
+                ThaumcraftCompat.initAspects(logger);
+            } catch (LinkageError error) {
+                thaumcraftIntegrationFailed = true;
+                logger.error("Thaumcraft custom aspect registration failed.", error);
+            }
+        }
+    }
 
     @EventHandler
     public void loadComplete(FMLLoadCompleteEvent event) {
