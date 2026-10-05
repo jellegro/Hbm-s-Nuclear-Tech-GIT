@@ -24,5 +24,7 @@ public final class ThaumcraftCompat {
         initializationAttempted = true;
         logger.info("Starting Thaumcraft authored aspect registration via CatalogueRegistry.");
         CatalogueRegistry.registerAll(logger);
+        logger.info("Starting Sol Tenebris forbidden research branch registration.");
+        BlackSunResearch.register(logger);
     }
 }
