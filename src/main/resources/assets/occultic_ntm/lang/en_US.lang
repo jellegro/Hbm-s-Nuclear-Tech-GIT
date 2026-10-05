@@ -1,4 +1,11 @@
 itemGroup.occultic_ntm=Occultic NTM
+occultic_ntm.rite.scapegoat=Rite of the Scapegoat
+occultic_ntm.rite.scapegoat.description=The harm within you passes through the heart glyph into one prepared living creature. Radiation is transferred, never cleansed.
+occultic_ntm.rite.scapegoat.requirements=Requires an active familiar, at least one coven witch (activate with a Seer Stone), and exactly one allowed living recipient within four blocks of the heart. The performing player must stand there too. Transfers bodily HBM radiation; carried poppet dose is untouched.
+occultic_ntm.rite.scapegoat.source_missing=The performing witch must be alive and inside the ritual area.
+occultic_ntm.rite.scapegoat.no_dose=The performing witch carries no transferable radiation.
+occultic_ntm.rite.scapegoat.recipient_count=Prepare exactly one permitted living recipient inside the ritual area.
+occultic_ntm.rite.scapegoat.incompatible=The recipient cannot receive the radiation without loss.
 item.witchery:poppet.protectRadiation.name=Irradiation Protection Poppet
 occultic_ntm.poppet.stored=Stored radiation: %s RAD
 occultic_ntm.poppet.capacity=Capacity: %s RAD
@@ -17,3 +24,37 @@ tc.aspect.chemica=Chemistry
 tc.aspect.strontio=Fission
 tc.aspect.contaminatio=Contamination
 tc.aspect.nebrisum=Exotic Matter
+
+tile.occultic_ntm.black_sun.name=The Black Sun
+item.occultic_ntm.ingot_atramentous.name=Atramentous Ingot
+item.occultic_ntm.core_abyssal.name=Abyssal Fuel Core
+item.occultic_ntm.slag_atramentous.name=Atramentous Slag
+occultic_ntm.tooltip.ingot_atramentous.1=§7An impossible heavy metal stabilized by condensed ionizing decay.
+occultic_ntm.tooltip.ingot_atramentous.2=§8Black Sun Transmutation Product
+occultic_ntm.tooltip.core_abyssal.1=§5Burns with cold, black criticality.
+occultic_ntm.tooltip.core_abyssal.2=§cExtreme eldritch ionizing hazard.
+occultic_ntm.tooltip.core_abyssal.3=§8Forbidden Fission Core
+occultic_ntm.tooltip.slag_atramentous.1=§7Vitrified ash left by the devouring of radioactive matter.
+
+tc.research_category.SOL_TENEBRIS=The Black Sun
+
+tc.research_name.TC_NTM_INVISIBLE_LIGHT=The Invisible Light
+tc.research_text.TC_NTM_INVISIBLE_LIGHT=Ionizing decay's alchemical weeping
+tc.research_page.TC_NTM_INVISIBLE_LIGHT.1=For decades, radiological pioneers measured the emissions of pitchblende and radium through gold-leaf electroscopes and cloud chambers. They spoke of alpha, beta, and gamma; of energetic particles tearing through matter.<BR>Yet when examined beneath the crystalline lenses of a Thaumometer, the phenomenon reveals its true, horrific nature: unstable nuclei do not merely shed physical energy. They shed their alchemical reality. Decay is the weeping of matter collapsing into entropy, radiating an invisible, occult luminescence.
+tc.research_page.TC_NTM_INVISIBLE_LIGHT.2=The Geiger counter measures the physical shockwaves of this process. The Thaumaturge perceives the underlying current: [radio], [strontio], and the dark whisper of the Void.<BR>To the nuclear engineer, radiation is a poison to be shielded behind decimeters of lead. To the occultist, it is an untamed fire waiting for an alchemical hearth.
+
+tc.research_name.TC_NTM_BLACK_SUN=The Black Sun
+tc.research_text.TC_NTM_BLACK_SUN=An artificial vessel for the invisible light
+tc.research_page.TC_NTM_BLACK_SUN.1=Matter cannot endure radiation without deteriorating. But what if one crafts an occult vessel whose very geometry inverts this principle?<BR>By fusing heavy lead shielding with thaumium matrices and eldritch void essences, you have formulated the design for Sol Tenebris—The Black Sun. It is an artificial vessel for the invisible light.<BR>When placed in the world, the Black Sun functions as an alchemical sink. It draws ambient ionization from the surrounding air, steadily accumulating it as a conserved physical charge measured in RAD. It may also be fed directly with spent nuclear fuels, radioactive isotopes, and hazardous waste—greedily drinking their poison while yielding inert atramentous slag.
+tc.research_page.TC_NTM_BLACK_SUN.2=The stored radiation does not vanish into the aether. It remains trapped in an unstable occult vortex. As the vessel fills, the alchemical tension mounts:<BR>- Beyond 1,000 RAD, proximity without radiation protection causes ionizing harm.<BR>- Beyond 3,000 RAD, containment falters: unshielded minds experience nausea, dread, and eldritch visions.<BR>- Beyond 6,000 RAD, radiation actively bleeds outward into the chunk.<BR>- Above 10,000 RAD, or if shattered by violence, the vessel ruptures catastrophically, discharging every stored Curie back into the world in a devastating radioactive and flux storm.<BR>The Black Sun is no mere trash bin. It is an unstable crucible awaiting purpose.
+
+tc.research_name.TC_NTM_ATRAMENTOUS_CATALYSIS=Atramentous Catalysis
+tc.research_text.TC_NTM_ATRAMENTOUS_CATALYSIS=Forcing matter across forbidden thresholds
+tc.research_page.TC_NTM_ATRAMENTOUS_CATALYSIS.1=Nuclear transmutation via particle accelerators requires gigawatts of power to transform a handful of atoms. The Black Sun offers a darker shortcut.<BR>By focusing the stored radiation charge through an alchemical matrix, base actinides and worthless nuclear waste can be forcibly collapsed into Atramentous Metal—an impossible, ultra-dense occult alloy. The Black Sun's charge is heavily consumed during the transmutation, satisfying the laws of conservation.<BR>Yet as the atoms yield to this unnatural force, the excess karmic entropy spills outward into the thaumaturge's soul as permanent Warp and lingering Flux.
+tc.research_page.TC_NTM_ATRAMENTOUS_CATALYSIS.2=Alternatively, placing nuclear waste atop an active Black Sun primed with at least 1,000 RAD and striking it with an alchemical catalyst or wand will instantly transmute the matter in-world, consuming the stored charge.
+
+tc.research_name.TC_NTM_ABYSSAL_CORE=The Abyssal Fuel
+tc.research_text.TC_NTM_ABYSSAL_CORE=Criticality beyond the void
+tc.research_page.TC_NTM_ABYSSAL_CORE.1=Conventional nuclear fission relies on chain reactions that eventually exhaust their fissile content and leave behind toxic slag. By binding fissile uranium with Atramentous Metal and Eldritch void resonance, you have fashioned the Abyssal Core.<BR>It burns with cold, black criticality. It produces immense energetic potency while suppressing prompt thermal expansion—an almost inexhaustible fuel source. But prolonged proximity to this core frays the boundary of reality itself, staining the surrounding area with Warp and unnatural eldritch resonance.
+tc.research_page.TC_NTM_ABYSSAL_CORE.2=The core radiates immense hazard in unshielded hands. Handle only with heavy hazmat or telekinetic wands.
+

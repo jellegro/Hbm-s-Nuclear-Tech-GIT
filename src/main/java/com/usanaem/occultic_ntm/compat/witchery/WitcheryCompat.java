@@ -8,6 +8,15 @@ public final class WitcheryCompat {
     private WitcheryCompat() { }
 
     public static boolean initialize(IntegrationConfig config, Logger logger) {
-        return IrradiationPoppetRegistry.register(config, logger);
+        boolean poppetAvailable = false;
+        try { poppetAvailable = IrradiationPoppetRegistry.register(config, logger); }
+        catch (LinkageError | RuntimeException failure) {
+            logger.error("Native Witchery Irradiation Poppet unavailable.", failure);
+        }
+        try { ScapegoatRiteRegistry.register(config, logger); }
+        catch (LinkageError | RuntimeException failure) {
+            logger.error("Native Witchery Rite of the Scapegoat unavailable.", failure);
+        }
+        return poppetAvailable;
     }
 }

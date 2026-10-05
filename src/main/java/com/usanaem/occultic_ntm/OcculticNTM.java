@@ -6,12 +6,17 @@ import com.usanaem.occultic_ntm.bootstrap.OptionalMods;
 import com.usanaem.occultic_ntm.compat.thaumcraft.ThaumcraftCompat;
 import com.usanaem.occultic_ntm.config.IntegrationConfig;
 import com.usanaem.occultic_ntm.compat.witchery.WitcheryCompat;
+import com.usanaem.occultic_ntm.registry.OcculticBlocks;
 import com.usanaem.occultic_ntm.registry.OcculticCreativeTab;
+import com.usanaem.occultic_ntm.registry.OcculticItems;
 import com.usanaem.occultic_ntm.radiation.TemporaryRadiationRelease;
+import com.usanaem.occultic_ntm.herobrine.HerobrineProxy;
+import com.usanaem.occultic_ntm.herobrine.HerobrineSightings;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -28,6 +33,10 @@ public class OcculticNTM {
     public static final String VERSION = "0.1.0";
     public static final OcculticCreativeTab CREATIVE_TAB = new OcculticCreativeTab();
 
+    @SidedProxy(clientSide = "com.usanaem.occultic_ntm.herobrine.client.HerobrineClientProxy",
+            serverSide = "com.usanaem.occultic_ntm.herobrine.HerobrineProxy")
+    public static HerobrineProxy herobrineProxy;
+
     private Logger logger;
     private final IntegrationConfig config = new IntegrationConfig();
     private boolean thaumcraftIntegrationFailed;
@@ -36,6 +45,8 @@ public class OcculticNTM {
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         config.load(event.getSuggestedConfigurationFile());
+        OcculticBlocks.init();
+        OcculticItems.init();
         FMLCommonHandler.instance().bus().register(this);
         logger.info("Occultic NTM bootstrap initialized.");
     }
@@ -47,6 +58,8 @@ public class OcculticNTM {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        OcculticItems.registerHazards();
+        HerobrineSightings.initialize(config, herobrineProxy);
         if (OptionalMods.isWitcheryLoaded()) {
             try { WitcheryCompat.initialize(config, logger); }
             catch (LinkageError | RuntimeException failure) {

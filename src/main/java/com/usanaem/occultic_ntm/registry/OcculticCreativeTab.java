@@ -12,11 +12,14 @@ import java.util.List;
 /** All visible fork content belongs to this tab. */
 public final class OcculticCreativeTab extends CreativeTabs {
     private ItemStack poppetStack;
+    private ItemStack forkIcon;
 
     public OcculticCreativeTab() { super(OcculticNTM.MOD_ID); }
 
+    public void setForkIcon(ItemStack stack) { forkIcon = stack == null ? null : stack.copy(); }
+
     /** Common data supplied by the optional integration; this tab never loads Witchery. */
-    public void setPoppetStack(ItemStack stack) { poppetStack = stack.copy(); }
+    public void setPoppetStack(ItemStack stack) { poppetStack = stack == null ? null : stack.copy(); }
 
     public ItemStack getPoppetStack() { return poppetStack == null ? null : poppetStack.copy(); }
 
@@ -27,6 +30,7 @@ public final class OcculticCreativeTab extends CreativeTabs {
     @Override
     @SideOnly(Side.CLIENT)
     public ItemStack getIconItemStack() {
+        if (forkIcon != null) return forkIcon;
         ItemStack nativeStack = getPoppetStack();
         return nativeStack == null ? new ItemStack(Items.leather) : nativeStack;
     }
