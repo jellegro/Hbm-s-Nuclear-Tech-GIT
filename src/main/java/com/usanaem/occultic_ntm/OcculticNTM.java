@@ -10,8 +10,16 @@ import com.usanaem.occultic_ntm.registry.OcculticBlocks;
 import com.usanaem.occultic_ntm.registry.OcculticCreativeTab;
 import com.usanaem.occultic_ntm.registry.OcculticItems;
 import com.usanaem.occultic_ntm.radiation.TemporaryRadiationRelease;
-import com.usanaem.occultic_ntm.herobrine.HerobrineProxy;
-import com.usanaem.occultic_ntm.herobrine.HerobrineSightings;
+import com.usanaem.occultic_ntm.bootstrap.OcculticProxy;
+import com.usanaem.occultic_ntm.anomaly.AnomalyManager;
+import com.usanaem.occultic_ntm.anomaly.AnomalyRegistry;
+import com.usanaem.occultic_ntm.haunting.HerobrineCancellation;
+import com.usanaem.occultic_ntm.haunting.EntityHerobrine;
+import com.usanaem.occultic_ntm.haunting.HauntingDirector;
+import com.usanaem.occultic_ntm.anomaly.impl.*;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -33,9 +41,10 @@ public class OcculticNTM {
     public static final String VERSION = "0.1.0";
     public static final OcculticCreativeTab CREATIVE_TAB = new OcculticCreativeTab();
 
-    @SidedProxy(clientSide = "com.usanaem.occultic_ntm.herobrine.client.HerobrineClientProxy",
-            serverSide = "com.usanaem.occultic_ntm.herobrine.HerobrineProxy")
-    public static HerobrineProxy herobrineProxy;
+    @SidedProxy(clientSide = "com.usanaem.occultic_ntm.client.OcculticClientProxy",
+            serverSide = "com.usanaem.occultic_ntm.bootstrap.OcculticProxy")
+    public static OcculticProxy proxy;
+    private AnomalyManager anomalies;
 
     private Logger logger;
     private final IntegrationConfig config = new IntegrationConfig();
@@ -53,13 +62,27 @@ public class OcculticNTM {
 
     @SubscribeEvent
     public void worldTick(TickEvent.WorldTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && !event.world.isRemote) TemporaryRadiationRelease.tick(event.world);
+        if (event.phase == TickEvent.Phase.END && !event.world.isRemote) {
+            TemporaryRadiationRelease.tick(event.world);
+            HerobrineCancellation.tick(event.world);
+        }
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
         OcculticItems.registerHazards();
-        HerobrineSightings.initialize(config, herobrineProxy);
+        HerobrineCancellation.initialize();
+        EntityRegistry.registerModEntity(EntityHerobrine.class, "EdgeOfSight", 1, this, 160, 2, false);
+        EntityRegistry.registerModEntity(EntityBlueFlame.class, "BlueTreasureFlame", 2, this, 80, 10, false);
+        AnomalyRegistry registry = new AnomalyRegistry();
+        registry.register(new BlueTreasureFlame());
+        anomalies = new AnomalyManager(config, registry);
+        FMLCommonHandler.instance().bus().register(anomalies);
+        MinecraftForge.EVENT_BUS.register(anomalies);
+        HauntingDirector haunting = new HauntingDirector(config);
+        FMLCommonHandler.instance().bus().register(haunting);
+        MinecraftForge.EVENT_BUS.register(haunting);
+        proxy.initialize();
         if (OptionalMods.isWitcheryLoaded()) {
             try { WitcheryCompat.initialize(config, logger); }
             catch (LinkageError | RuntimeException failure) {
@@ -77,6 +100,8 @@ public class OcculticNTM {
             }
         }
     }
+
+    @EventHandler public void serverStarting(FMLServerStartingEvent event) { event.registerServerCommand(anomalies); }
 
     @EventHandler
     public void loadComplete(FMLLoadCompleteEvent event) {

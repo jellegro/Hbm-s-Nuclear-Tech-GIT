@@ -161,6 +161,7 @@ processResources {
 jar {
     manifest {
         attributes 'FMLAT': 'HBM_at.cfg',
+                'FMLCorePlugin': 'com.usanaem.occultic_ntm.bootstrap.OcculticCorePlugin',
                 'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
                 'ForceLoadAsMod': 'true',
                 'FMLCorePluginContainsFMLMod': 'true'
@@ -169,8 +170,14 @@ jar {
 
 // UniMixins' ForgeGradle/Gradle 4 pattern. Witchery targets are queued by the
 // GTNH late loader after ordinary mod jars enter the classpath, never early.
-runClient { args('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker') }
-runServer { args('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker') }
+runClient {
+    args('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker')
+    jvmArgs '-Dfml.coreMods.load=com.usanaem.occultic_ntm.bootstrap.OcculticCorePlugin'
+}
+runServer {
+    args('--tweakClass', 'org.spongepowered.asm.launch.MixinTweaker')
+    jvmArgs '-Dfml.coreMods.load=com.usanaem.occultic_ntm.bootstrap.OcculticCorePlugin'
+}
 def mixinSrg = "${tasks.compileJava.temporaryDir}/occultic-mixins.srg"
 def mixinRefmap = "${tasks.compileJava.temporaryDir}/mixins.occultic_ntm.refmap.json"
 compileJava {
@@ -202,6 +209,7 @@ task devJar(type: Jar) {
 
 	manifest {
 		attributes 'FMLAT': 'HBM_at.cfg',
+				'FMLCorePlugin': 'com.usanaem.occultic_ntm.bootstrap.OcculticCorePlugin',
 				'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
 				'ForceLoadAsMod': 'true',
 				'FMLCorePluginContainsFMLMod': 'true'

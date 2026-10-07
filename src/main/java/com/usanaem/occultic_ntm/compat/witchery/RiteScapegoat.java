@@ -28,8 +28,12 @@ import java.util.List;
 public final class RiteScapegoat extends Rite {
     public static final float ALTAR_POWER = 4000F;
     private final ScapegoatRecipients recipients;
+    private final boolean requireRadiantChalk;
 
-    public RiteScapegoat(ScapegoatRecipients recipients) { this.recipients = recipients; }
+    public RiteScapegoat(ScapegoatRecipients recipients) { this(recipients, false); }
+    public RiteScapegoat(ScapegoatRecipients recipients, boolean requireRadiantChalk) {
+        this.recipients = recipients; this.requireRadiantChalk = requireRadiantChalk;
+    }
 
     @Override
     public void addSteps(ArrayList<RitualStep> steps, int initialStage) {
@@ -56,6 +60,7 @@ public final class RiteScapegoat extends Rite {
                 nativeOfferings.addDescription(description);
                 description.append('\n').append(StatCollector.translateToLocal("occultic_ntm.rite.scapegoat.description"));
                 description.append('\n').append(StatCollector.translateToLocal("occultic_ntm.rite.scapegoat.requirements"));
+                if (requireRadiantChalk) description.append('\n').append(StatCollector.translateToLocal("occultic_ntm.rite.scapegoat.radiant_requirement"));
             }
         };
     }
@@ -65,6 +70,8 @@ public final class RiteScapegoat extends Rite {
 	* */
     private String validate(World world, int x, int y, int z, ActivatedRitual ritual) {
         EntityPlayer source = ritual.getInitiatingPlayer(world);
+        if (requireRadiantChalk && !RadiantChalk.hasRequiredRadiantGlyphs(world, x, y, z, 5, 24))
+            return "occultic_ntm.rite.scapegoat.radiant_requirement";
         if (!recipients.isInside(source, world, x, y, z)) return "occultic_ntm.rite.scapegoat.source_missing";
         if (Familiar.getActiveFamiliarType(source) == Familiar.FAMILIAR_NONE) return "witchery.rite.missingfamiliar";
         if (ritual.covenSize < 1) return StatCollector.translateToLocalFormatted("witchery.rite.missingcoven", 1);
@@ -117,6 +124,7 @@ public final class RiteScapegoat extends Rite {
                 if (!(AccumulatedRadiationTransfer.transfer(source, recipient) > 0))
                     return fail("occultic_ntm.rite.scapegoat.incompatible", world, ritual);
                 committed = true;
+                if (requireRadiantChalk) com.usanaem.occultic_ntm.anomaly.AnomalyAttention.radiantRitePerformed(source);
                 sourceX = source.posX; sourceY = source.posY + 1D; sourceZ = source.posZ;
                 recipientX = recipient.posX; recipientY = recipient.posY + recipient.height * 0.5D; recipientZ = recipient.posZ;
                 SoundEffect.RANDOM_FIZZ.playAt(world, x + 0.5D, y + 0.5D, z + 0.5D);

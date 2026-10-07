@@ -33,7 +33,11 @@ public final class ScapegoatRiteRegistry {
                 return false;
             }
         }
-        RiteScapegoat rite = new RiteScapegoat(new ScapegoatRecipients(config, logger));
+        if (config.isRadiantChalkEnabled() && RadiantChalk.item == null) {
+            logger.error("Scapegoat rite disabled: its required Radiant Chalk could not register.");
+            return false;
+        }
+        RiteScapegoat rite = new RiteScapegoat(new ScapegoatRecipients(config, logger), config.isRadiantChalkEnabled());
         ritual = RiteRegistry.addRecipe(RITUAL_ID, RITUAL_ID, rite,
                 rite.guardOfferings(new SacrificeMultiple(
                         new SacrificeItem(new ItemStack(Blocks.wool), new ItemStack(ModItems.ingot_lead),
