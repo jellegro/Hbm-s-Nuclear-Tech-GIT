@@ -33,7 +33,11 @@ public final class ScapegoatRiteRegistry {
                 return false;
             }
         }
-        RiteScapegoat rite = new RiteScapegoat(new ScapegoatRecipients(config, logger));
+        if (config.isRadiantChalkEnabled() && RadiantChalk.item == null) {
+            logger.error("Scapegoat rite disabled: its required Radiant Chalk could not register.");
+            return false;
+        }
+        RiteScapegoat rite = new RiteScapegoat(new ScapegoatRecipients(config, logger), config.isRadiantChalkEnabled());
         ritual = RiteRegistry.addRecipe(RITUAL_ID, RITUAL_ID, rite,
                 rite.guardOfferings(new SacrificeMultiple(
                         new SacrificeItem(new ItemStack(Blocks.wool), new ItemStack(ModItems.ingot_lead),
@@ -43,10 +47,18 @@ public final class ScapegoatRiteRegistry {
                         new SacrificePower(RiteScapegoat.ALTAR_POWER, 20))),
                 EnumSet.noneOf(RitualTraits.class),
                 // Native counts: 24 white glyphs (11x11), 12 Otherwhere glyphs (7x7).
-                new Circle(24, 0, 0), new Circle(0, 12, 0))
+                makeOuterCircle(config.isRadiantChalkEnabled()), new Circle(0, 12, 0))
                 .setUnlocalizedName("occultic_ntm.rite.scapegoat");
         logger.info("Native Rite of the Scapegoat registered at ID 120: active familiar, one coven witch, 4000 altar power.");
         return true;
+    }
+
+    private static Circle makeOuterCircle(boolean radiant) {
+        Circle circle = new Circle(24, 0, 0);
+        if (radiant && circle instanceof IRadiantCircle) {
+            ((IRadiantCircle) circle).occultic$setRadiant(true);
+        }
+        return circle;
     }
 
     public static RiteRegistry.Ritual getRitual() { return ritual; }

@@ -17,6 +17,6 @@ public final class OcculticLateMixins implements ILateMixinLoader {
     public List<String> getMixins(Set<String> loadedMods) {
         if (!loadedMods.contains("witchery")) return Collections.emptyList();
         return Arrays.asList("accessor.MixinItemPoppetAccessor",
-                "accessor.MixinPoppetTypeInvoker");
+                "accessor.MixinPoppetTypeInvoker", "MixinCircle");
     }
 }

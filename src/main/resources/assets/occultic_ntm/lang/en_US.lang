@@ -58,3 +58,11 @@ tc.research_text.TC_NTM_ABYSSAL_CORE=Criticality beyond the void
 tc.research_page.TC_NTM_ABYSSAL_CORE.1=Conventional nuclear fission relies on chain reactions that eventually exhaust their fissile content and leave behind toxic slag. By binding fissile uranium with Atramentous Metal and Eldritch void resonance, you have fashioned the Abyssal Core.<BR>It burns with cold, black criticality. It produces immense energetic potency while suppressing prompt thermal expansion—an almost inexhaustible fuel source. But prolonged proximity to this core frays the boundary of reality itself, staining the surrounding area with Warp and unnatural eldritch resonance.
 tc.research_page.TC_NTM_ABYSSAL_CORE.2=The core radiates immense hazard in unshielded hands. Handle only with heavy hazmat or telekinetic wands.
 
+# Anomalies and nuclear ritual materials
+item.occultic_ntm.radiant_chalk.name=Radiant Chalk
+tile.occultic_ntm.radiant_glyph.name=Radiant Glyph
+occultic_ntm.rite.scapegoat.radiant_requirement=Requires 24 Radiant Chalk glyphs in the outer white circle.
+tc.research_name.TC_NTM_IMPOSSIBLE_OBSERVATION=An Impossible Observation
+tc.research_text.TC_NTM_IMPOSSIBLE_OBSERVATION=Something returned a result
+occultic_ntm.research.observation.1=The instrument returned a surprisingly ordinary classification: a human form, with a small absence where further detail should have been. Distance and poor light can account for many errors. I have recorded the reading for comparison with a second observation.<BR><BR>The figure remained quite still throughout the measurement. That, at least, was helpful.
+occultic_ntm.research.observation.2=The absence was not an error. The instrument completed its measurement. There was nothing standing there when I lowered it.<BR><BR>I have repeated the calculation. I have checked the lens. I have checked the calculation again.<BR><BR>I do not remember turning toward the figure. I remember finding it already facing me.<BR><BR>The last line in my notes is not in my handwriting. It is a perfectly ordinary line. It gives my location.

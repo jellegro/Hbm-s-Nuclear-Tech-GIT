@@ -26,5 +26,9 @@ public final class ThaumcraftCompat {
         CatalogueRegistry.registerAll(logger);
         logger.info("Starting Sol Tenebris forbidden research branch registration.");
         BlackSunResearch.register(logger);
+        try { ImpossibleObservationResearch.register(logger); }
+        catch (LinkageError | RuntimeException failure) {
+            logger.error("Optional Impossible Observation discovery unavailable; other Thaumcraft registrations remain active.", failure);
+        }
     }
 }

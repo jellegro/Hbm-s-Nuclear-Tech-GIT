@@ -9,6 +9,8 @@ public final class WitcheryCompat {
 
     public static boolean initialize(IntegrationConfig config, Logger logger) {
         boolean poppetAvailable = false;
+        try { RadiantChalk.initialize(config, logger); }
+        catch (LinkageError | RuntimeException failure) { logger.error("Native Radiant Chalk unavailable.", failure); }
         try { poppetAvailable = IrradiationPoppetRegistry.register(config, logger); }
         catch (LinkageError | RuntimeException failure) {
             logger.error("Native Witchery Irradiation Poppet unavailable.", failure);
