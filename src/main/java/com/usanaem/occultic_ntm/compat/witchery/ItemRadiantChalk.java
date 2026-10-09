@@ -1,11 +1,16 @@
 package com.usanaem.occultic_ntm.compat.witchery;
 
 import com.emoniph.witchery.Witchery;
+import com.emoniph.witchery.util.SoundEffect;
 import com.usanaem.occultic_ntm.OcculticNTM;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.event.world.BlockEvent;
 
 /** Uses the native glyph placement contract demonstrated by MIT addon-owned ItemElderChalk. */
 public final class ItemRadiantChalk extends Item {
@@ -26,10 +31,11 @@ public final class ItemRadiantChalk extends Item {
         if (world.isRemote) return true;
         if (RadiantChalk.isRadiantGlyph(world, x, y, z)) return false;
         // Permit cancellable Forge placement for claimed/protected ritual sites.
-        net.minecraftforge.common.util.BlockSnapshot snapshot = net.minecraftforge.common.util.BlockSnapshot.getBlockSnapshot(world, x, y, z);
+        BlockSnapshot snapshot = BlockSnapshot.getBlockSnapshot(world, x, y, z);
         int metadata = existing ? world.getBlockMetadata(x, y, z) : world.rand.nextInt(12);
         if (!world.setBlock(x, y, z, RadiantChalk.glyph, metadata, 3)) return false;
-        net.minecraftforge.event.world.BlockEvent.PlaceEvent event = net.minecraftforge.event.ForgeEventFactory.onPlayerBlockPlace(player, snapshot, net.minecraftforge.common.util.ForgeDirection.getOrientation(side));
+		SoundEffect.WITCHERY_RANDOM_CHALK.playAt(world, x, y, z, 1.0F, 1.0F);
+        BlockEvent.PlaceEvent event = ForgeEventFactory.onPlayerBlockPlace(player, snapshot, ForgeDirection.getOrientation(side));
         if (event.isCanceled()) { snapshot.restore(true, false); return false; }
         if (!player.capabilities.isCreativeMode) stack.damageItem(1, player);
         return true;

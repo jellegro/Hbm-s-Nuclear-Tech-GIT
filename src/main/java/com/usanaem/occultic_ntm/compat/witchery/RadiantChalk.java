@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraft.block.Block;
-import com.usanaem.occultic_ntm.bootstrap.GlyphCircleQueries;
 import org.apache.logging.log4j.Logger;
 import java.util.*;
 
@@ -45,7 +44,6 @@ public final class RadiantChalk {
         glyph = new BlockRadiantGlyph(Witchery.Blocks.GLYPH_RITUAL);
         // A hidden registered stack supports WAILA/pick-block identification; chalk owns placement.
         GameRegistry.registerBlock(glyph, ItemBlockRadiantGlyph.class, "radiant_glyph");
-        GlyphCircleQueries.configure(glyph, Witchery.Blocks.GLYPH_RITUAL);
         GameRegistry.registerItem(item, "radiant_chalk");
         GameRegistry.addShapelessRecipe(new ItemStack(item), new ItemStack(chalk), new ItemStack(ModItems.powder_uranium), new ItemStack(Items.slime_ball));
         HazardSystem.register(item, new HazardData().addEntry(new HazardTypeRadiation(), 0.025F));

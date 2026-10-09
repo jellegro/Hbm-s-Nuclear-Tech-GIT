@@ -2,13 +2,17 @@ package com.usanaem.occultic_ntm.compat.witchery;
 
 import java.util.Random;
 import com.usanaem.occultic_ntm.OcculticNTM;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -22,10 +26,11 @@ public final class BlockRadiantGlyph extends Block {
         this.pattern = pattern;
         setBlockName("occultic_ntm.radiant_glyph");
         setCreativeTab(OcculticNTM.CREATIVE_TAB);
-        setHardness(0); setStepSound(soundTypeSand); setLightLevel(3F / 15F);
-        setBlockBounds((float) pattern.getBlockBoundsMinX(), (float) pattern.getBlockBoundsMinY(),
-                (float) pattern.getBlockBoundsMinZ(), (float) pattern.getBlockBoundsMaxX(),
-                (float) pattern.getBlockBoundsMaxY(), (float) pattern.getBlockBoundsMaxZ());
+        setHardness(2.0f);
+        setResistance(1000.0f);
+        setStepSound(soundTypeSand); 
+        setLightLevel(3F / 15F);
+        setBlockBounds(0.0f, 0.0f, 0.0f, 1.0f, 0.015625f, 1.0f);
     }
     @SideOnly(Side.CLIENT) @Override public void registerBlockIcons(IIconRegister register) { }
     @SideOnly(Side.CLIENT) @Override public IIcon getIcon(int side, int metadata) { return pattern.getIcon(side, metadata); }
@@ -50,5 +55,10 @@ public final class BlockRadiantGlyph extends Block {
             if (data != null) data.remove(x, y, z);
         }
         super.breakBlock(world, x, y, z, replacement, metadata);
+    }
+
+    @Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
+        return RadiantChalk.item != null ? new ItemStack(RadiantChalk.item, 1, 0) : null;
     }
 }

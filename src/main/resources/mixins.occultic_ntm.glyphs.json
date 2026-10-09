@@ -1,8 +1,0 @@
-{
-  "required": true,
-  "minVersion": "0.8.5",
-  "package": "com.usanaem.occultic_ntm.mixin.glyphs",
-  "compatibilityLevel": "JAVA_8",
-  "refmap": "mixins.occultic_ntm.refmap.json",
-  "mixins": []
-}
