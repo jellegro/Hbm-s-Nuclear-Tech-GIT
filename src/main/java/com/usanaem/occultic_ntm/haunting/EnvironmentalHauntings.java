@@ -96,7 +96,10 @@ public final class EnvironmentalHauntings {
             int odds = activity.evidenceOdds(kind, HauntingDirector.surge(world));
             if (kind.equals(HauntingPlayerState.lastEvidence(owner))) odds *= 2;
             if (odds > 0 && world.rand.nextInt(odds) == 0 && atSite(owner, site, false)) {
-                HauntingDirector.evidenceCompleted(owner, kind); return;
+                // Only a door within earshot is a beat the owner can perceive; torches and groves change silently.
+                boolean heard = "door".equals(kind) && owner.getDistanceSq(site.getInteger("x") + .5, site.getInteger("y"), site.getInteger("z") + .5) < 20 * 20;
+                if (heard) HauntingDirector.setCue(owner, site.getInteger("x") + .5, site.getInteger("z") + .5);
+                HauntingDirector.evidenceCompleted(owner, kind, heard, activity != HauntingActivity.QUIET); return;
             }
         }
         int footstepsOdds = activity.evidenceOdds("footsteps", HauntingDirector.surge(world));
@@ -135,7 +138,25 @@ public final class EnvironmentalHauntings {
         if (!config.areEnvironmentalHauntingsEnabled() || !HauntingDirector.evidenceAllowed(player)) return false;
         boolean companions = CompanionAwareness.hint(player, activity);
         boolean sound = footsteps(player);
-        if (sound || companions) { HauntingDirector.evidenceCompleted(player, sound ? "footsteps" : "companions"); return true; }
+        if (!sound && companions) {
+            double angle = Math.toRadians(player.rotationYaw + 180);
+            HauntingDirector.setCue(player, player.posX - Math.sin(angle) * 8, player.posZ + Math.cos(angle) * 8);
+        }
+        // Quiet days keep their silence: the beat fills the slot but is not followed by a quick sighting.
+        if (sound || companions) { HauntingDirector.evidenceCompleted(player, sound ? "footsteps" : "companions", true, activity != HauntingActivity.QUIET); return true; }
+        return false;
+    }
+    /** A nearby familiar door is part of the current stalking, never a destination the player must seek. */
+    boolean presenceDoor(EntityPlayerMP player) {
+        if (!config.areEnvironmentalHauntingsEnabled() || !HauntingDirector.evidenceAllowed(player)) return false;
+        for (NBTTagCompound site : new ArrayList<NBTTagCompound>(HauntingWorldState.get(player.worldObj).sites)) {
+            if (!"door".equals(site.getString("type")) || !player.getUniqueID().toString().equals(site.getString("owner"))
+                    || player.getDistanceSq(site.getInteger("x") + .5, site.getInteger("y"), site.getInteger("z") + .5) > 14 * 14) continue;
+            if (atSite(player, site, false)) {
+                HauntingDirector.setCue(player, site.getInteger("x") + .5, site.getInteger("z") + .5);
+                HauntingDirector.evidenceCompleted(player, "door", true, true); return true;
+            }
+        }
         return false;
     }
     private static EntityPlayerMP owner(World world, NBTTagCompound site) {
@@ -149,7 +170,8 @@ public final class EnvironmentalHauntings {
         if (!HauntingDirector.enabled() || !config.areEnvironmentalHauntingsEnabled() || !player.isEntityAlive() || player.isPlayerSleeping()) return false;
         Runtime runtime = runtime(player.worldObj);
         if (!runtime.sounds.isEmpty() || !HauntingPlacement.loaded(player.worldObj, player.posX - 7, player.posZ - 7, player.posX + 7, player.posZ + 7)) return false;
-        runtime.sounds.add(new Footsteps(player)); return true;
+        Footsteps steps = new Footsteps(player);
+        runtime.sounds.add(steps); HauntingDirector.setCue(player, steps.x, steps.z); return true;
     }
     public boolean force(EntityPlayerMP player, String kind) {
         if (!HauntingDirector.enabled() || !config.areEnvironmentalHauntingsEnabled()) return false;

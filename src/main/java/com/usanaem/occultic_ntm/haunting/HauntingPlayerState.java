@@ -29,6 +29,7 @@ public final class HauntingPlayerState {
     public static int failures(EntityPlayer player) { return Math.max(0, Math.min(6, read(player).getInteger("placementFailures"))); }
     public static int lastKind(EntityPlayer player) { return read(player).hasKey("lastKind") ? read(player).getInteger("lastKind") : -1; }
     public static long evidenceUntil(EntityPlayer player) { return Math.max(0, read(player).getLong("evidenceUntil")); }
+    static void quietUntil(EntityPlayer player, long until) { write(player).setLong("evidenceUntil", Math.max(0, until)); }
     public static String lastEvidence(EntityPlayer player) { return read(player).getString("lastEvidence"); }
     public static void schedule(EntityPlayer player, long time) {
         NBTTagCompound tag = write(player); tag.setInteger("cadenceVersion", 2);
@@ -42,10 +43,24 @@ public final class HauntingPlayerState {
     public static void retry(EntityPlayer player, long time) {
         write(player).setInteger("placementFailures", Math.min(6, failures(player) + 1)); defer(player, time);
     }
-    public static void cleared(EntityPlayer player, Sighting kind) { write(player).setInteger("lastKind", kind.ordinal()); }
-    public static void evidence(EntityPlayer player, String kind, long now) {
-        NBTTagCompound tag = write(player); tag.setString("lastEvidence", kind); tag.setLong("evidenceUntil", now + 600);
+    public static void cleared(EntityPlayer player, Sighting kind) {
+        NBTTagCompound tag = write(player);
+        if (tag.hasKey("lastKind")) tag.setInteger("prevKind", tag.getInteger("lastKind"));
+        tag.setInteger("lastKind", kind.ordinal());
     }
+    public static int prevKind(EntityPlayer player) { return read(player).hasKey("prevKind") ? read(player).getInteger("prevKind") : -1; }
+    public static void evidence(EntityPlayer player, String kind, long now) { evidence(player, kind, now, true); }
+    /** Perceptible beats briefly hold sightings back; latent ones (unseen world changes) do not. */
+    public static void evidence(EntityPlayer player, String kind, long now, boolean perceptible) {
+        NBTTagCompound tag = write(player); tag.setString("lastEvidence", kind);
+        if (perceptible) tag.setLong("evidenceUntil", now + 600);
+    }
+    public static long nextMiner(EntityPlayer player) { return Math.max(0, read(player).getLong("nextMiner")); }
+    public static void minerBudget(EntityPlayer player, long time) { write(player).setLong("nextMiner", Math.max(0, time)); }
+    public static int sleepsWithoutNightmare(EntityPlayer player) { return Math.max(0, Math.min(40, read(player).getInteger("sleepsWithoutNightmare"))); }
+    public static void slept(EntityPlayer player, boolean nightmare) { write(player).setInteger("sleepsWithoutNightmare", nightmare ? 0 : sleepsWithoutNightmare(player) + 1); }
+    static NBTTagCompound presence(EntityPlayer player) { return read(player).getCompoundTag("presence"); }
+    static void presence(EntityPlayer player, NBTTagCompound state) { write(player).setTag("presence", state); }
     public static void copy(EntityPlayer original, EntityPlayer replacement) {
         NBTTagCompound persisted = original.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
         if (persisted.hasKey(KEY, 10)) {
