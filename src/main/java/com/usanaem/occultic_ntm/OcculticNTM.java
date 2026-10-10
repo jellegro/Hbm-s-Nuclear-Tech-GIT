@@ -17,6 +17,7 @@ import com.usanaem.occultic_ntm.haunting.HerobrineCancellation;
 import com.usanaem.occultic_ntm.haunting.EntityHerobrine;
 import com.usanaem.occultic_ntm.haunting.HauntingDirector;
 import com.usanaem.occultic_ntm.anomaly.impl.*;
+import com.usanaem.occultic_ntm.entity.EntityTarborn;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -74,6 +75,7 @@ public class OcculticNTM {
         HerobrineCancellation.initialize();
         EntityRegistry.registerModEntity(EntityHerobrine.class, "EdgeOfSight", 1, this, 160, 2, false);
         EntityRegistry.registerModEntity(EntityBlueFlame.class, "BlueTreasureFlame", 2, this, 80, 10, false);
+        EntityRegistry.registerModEntity(EntityTarborn.class, "Tarborn", 3, this, 80, 3, true);
         AnomalyRegistry registry = new AnomalyRegistry();
         registry.register(new BlueTreasureFlame());
         anomalies = new AnomalyManager(config, registry);

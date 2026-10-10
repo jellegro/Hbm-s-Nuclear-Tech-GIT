@@ -15,9 +15,9 @@ public final class WitcheryCompat {
         catch (LinkageError | RuntimeException failure) {
             logger.error("Native Witchery Irradiation Poppet unavailable.", failure);
         }
-        try { ScapegoatRiteRegistry.register(config, logger); }
+        try { OcculticRitualRegistry.initialize(config, logger); }
         catch (LinkageError | RuntimeException failure) {
-            logger.error("Native Witchery Rite of the Scapegoat unavailable.", failure);
+            logger.error("Native Witchery rituals unavailable.", failure);
         }
         return poppetAvailable;
     }
