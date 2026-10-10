@@ -12,6 +12,8 @@ public final class IntegrationConfig {
     private boolean enableIrradiationPoppet = true;
     private double poppetCapacity = 200D;
     private boolean enableScapegoatRite = true;
+    private boolean enableKineticPestleRite = true;
+    private boolean enableLungWardRite = true;
     private boolean allowScapegoatPlayerRecipients;
     private String[] scapegoatRecipientEntityIds = { "Pig", "Sheep", "Chicken" };
     private boolean enableAmbientAnomalies = true;
@@ -65,6 +67,10 @@ public final class IntegrationConfig {
                 "Enable Irradiation Poppet crafting and protection with Witchery. Existing items and hazards persist. Requires restart.");
         enableScapegoatRite = configuration.getBoolean("enableScapegoatRite", "witchery", true,
                 "Register the native Rite of the Scapegoat to transfer bodily HBM radiation. Requires restart.");
+        enableKineticPestleRite = configuration.getBoolean("enableKineticPestleRite", "witchery", true,
+                "Register the Rite of the Kinetic Pestle for acoustic ore pulverization. Requires restart.");
+        enableLungWardRite = configuration.getBoolean("enableLungWardRite", "witchery", true,
+                "Register the Rite of the Lung Ward to purge soot and asbestos from lungs. Requires restart.");
         enableRadiantChalk = configuration.getBoolean("enableRadiantChalk", "witchery", true,
                 "Register mild radioactive chalk. Scapegoat then requires a radiant native white ring. Requires restart.");
         allowScapegoatPlayerRecipients = configuration.getBoolean("allowScapegoatPlayerRecipients", "witchery", false,
@@ -72,7 +78,6 @@ public final class IntegrationConfig {
         scapegoatRecipientEntityIds = configuration.getStringList("scapegoatRecipientEntityIds", "witchery",
                 new String[] { "Pig", "Sheep", "Chicken" },
                 "Exact Minecraft 1.7.10 EntityList registry names (e.g. Pig or modid.EntityName). Empty list permits no creatures; players use the separate option. Requires restart.");
-        // configuration.getCategory("witchery").remove("absorptionFraction");
         poppetCapacity = finiteSetting(configuration, "capacityRAD", 200D, 1D, 1000000D,
                 "Maximum stored HBM dose in RAD before sacrificial rupture. Stored dose is released locally, including after lowering capacity. Requires restart.");
         if (configuration.hasChanged()) {
@@ -96,6 +101,8 @@ public final class IntegrationConfig {
     public boolean isIrradiationPoppetEnabled() { return enableIrradiationPoppet; }
     public double getPoppetCapacity() { return poppetCapacity; }
     public boolean isScapegoatRiteEnabled() { return enableScapegoatRite; }
+    public boolean isKineticPestleRiteEnabled() { return enableKineticPestleRite; }
+    public boolean isLungWardRiteEnabled() { return enableLungWardRite; }
     public boolean areScapegoatPlayerRecipientsAllowed() { return allowScapegoatPlayerRecipients; }
     public String[] getScapegoatRecipientEntityIds() { return scapegoatRecipientEntityIds.clone(); }
     public boolean areAmbientAnomaliesEnabled() { return enableAmbientAnomalies; }

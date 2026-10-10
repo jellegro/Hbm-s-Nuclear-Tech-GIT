@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8.5",
-  "package": "com.usanaem.occultic_ntm.mixin.witchery",
+  "package": "com.usanaem.occultic_ntm.compat.witchery.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.occultic_ntm.refmap.json",
   "mixins": []

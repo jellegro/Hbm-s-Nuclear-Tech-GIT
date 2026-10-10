@@ -6,6 +6,11 @@ occultic_ntm.rite.scapegoat.source_missing=The performing witch must be alive an
 occultic_ntm.rite.scapegoat.no_dose=The performing witch carries no transferable radiation.
 occultic_ntm.rite.scapegoat.recipient_count=Prepare exactly one permitted living recipient inside the ritual area.
 occultic_ntm.rite.scapegoat.incompatible=The recipient cannot receive the radiation without loss.
+occultic_ntm.rite.kinetic_pestle=Rite of the Kinetic Pestle
+occultic_ntm.rite.kinetic_pestle.description=Acoustic shockwaves pulverize raw ores dropped in the circle into refined powders without tools.
+occultic_ntm.rite.kinetic_pestle.requirements=Requires a 7x7 small Radiant Chalk circle and 500 altar power. Drop up to 32 crushable ores into the circle alongside flint, gunpowder, and ash.
+occultic_ntm.rite.kinetic_pestle.no_ores=No crushable ores found inside the circle.
+occultic_ntm.rite.kinetic_pestle.ash_offering=Ash (Wood or Coal)
 item.witchery:poppet.protectRadiation.name=Irradiation Protection Poppet
 occultic_ntm.poppet.stored=Stored radiation: %s RAD
 occultic_ntm.poppet.capacity=Capacity: %s RAD
@@ -66,3 +71,15 @@ tc.research_name.TC_NTM_IMPOSSIBLE_OBSERVATION=An Impossible Observation
 tc.research_text.TC_NTM_IMPOSSIBLE_OBSERVATION=Something returned a result
 occultic_ntm.research.observation.1=The instrument returned a surprisingly ordinary classification: a human form, with a small absence where further detail should have been. Distance and poor light can account for many errors. I have recorded the reading for comparison with a second observation.<BR><BR>The figure remained quite still throughout the measurement. That, at least, was helpful.
 occultic_ntm.research.observation.2=The absence was not an error. The instrument completed its measurement. There was nothing standing there when I lowered it.<BR><BR>I have repeated the calculation. I have checked the lens. I have checked the calculation again.<BR><BR>I do not remember turning toward the figure. I remember finding it already facing me.<BR><BR>The last line in my notes is not in my handwriting. It is a perfectly ordinary line. It gives my location.
+
+# Rite of the Lung Ward
+occultic_ntm.rite.lung_ward.name=Rite of the Lung Ward
+occultic_ntm.rite.lung_ward.description=Purges soot, coal dust, and asbestos fibers from the practitioner's lungs. Filter cartridges remain untouched. Purged particulates risk coalescing into a hostile Tarborn.
+occultic_ntm.rite.lung_ward.requirements=Altar Power: 500\nCircle: 7x7 Radiant Chalk (16)\nOfferings: 1x Paper, 1x Clay Ball, 1x Glass Bottle\nCondition: Practitioner must stand inside circle and have contaminated lungs
+occultic_ntm.rite.lung_ward.player_not_in_circle=The practitioner must stand within the circle to purge their lungs.
+occultic_ntm.rite.lung_ward.clean=The practitioner's lungs bear no soot or particulates to purge.
+entity.occultic_ntm.Tarborn.name=Tarborn
+entity.Tarborn.name=Tarborn
+item.occultic_ntm.spawn_egg_tarborn.name=Spawn Tarborn
+tile.occultic_ntm.tar_trail.name=Tar Trail
+

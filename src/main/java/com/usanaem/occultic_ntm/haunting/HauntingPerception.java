@@ -16,20 +16,23 @@ public final class HauntingPerception {
     }
     private HauntingPerception() { }
     public static Vec3 eyes(EntityPlayer player) { return Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ); }
-    public static State classify(double dot, boolean clear, boolean glass) {
+    public static State classify(double dot, boolean clear, boolean glass) { return classify(dot, clear, glass, .82); }
+    /** cone is the archetype's direct-observation threshold; .5 remains the outer peripheral edge. */
+    public static State classify(double dot, boolean clear, boolean glass, double cone) {
         if (!clear || dot < .5) return State.UNSEEN;
-        if (dot < .82) return State.PERIPHERAL;
+        if (dot < cone) return State.PERIPHERAL;
         if (glass) return State.OBSERVED_THROUGH_GLASS;
         return dot >= .9986 ? State.FIXATED : State.OBSERVED;
     }
-    public static State observe(EntityPlayer player, double x, double y, double z) {
+    public static State observe(EntityPlayer player, double x, double y, double z) { return observe(player, x, y, z, .82); }
+    public static State observe(EntityPlayer player, double x, double y, double z, double cone) {
         Vec3 origin = eyes(player), target = Vec3.createVectorHelper(x, y, z);
         Vec3 direction = Vec3.createVectorHelper(x - origin.xCoord, y - origin.yCoord, z - origin.zCoord);
         if (direction.lengthVector() > 128) return State.UNSEEN;
         double dot = player.getLookVec().dotProduct(direction.normalize());
         if (dot < .5) return State.UNSEEN;
         SightLine line = line(player.worldObj, origin, target);
-        return classify(dot, line.clear, line.glass);
+        return classify(dot, line.clear, line.glass, cone);
     }
     public static boolean watching(EntityPlayer player, double x, double y, double z) {
         return observe(player, x, y, z) != State.UNSEEN;

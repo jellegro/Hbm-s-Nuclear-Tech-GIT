@@ -2,8 +2,8 @@ package com.usanaem.occultic_ntm.compat.witchery.client;
 
 import com.emoniph.witchery.Witchery;
 import com.hbm.blocks.ITooltipProvider;
-import com.usanaem.occultic_ntm.compat.witchery.IrradiationPoppet;
-import com.usanaem.occultic_ntm.compat.witchery.IrradiationPoppetRegistry;
+import com.usanaem.occultic_ntm.compat.witchery.item.IrradiationPoppet;
+import com.usanaem.occultic_ntm.compat.witchery.item.IrradiationPoppetRegistry;
 import com.usanaem.occultic_ntm.config.IntegrationConfig;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.ArrayList;

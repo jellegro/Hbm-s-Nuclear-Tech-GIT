@@ -70,16 +70,28 @@ public final class HauntingPlacement {
         }
         return null;
     }
+    /** Shallow enclosed surface (house, bunker entrance, tower); deep rock is still just underground(). */
+    public static boolean roofed(EntityPlayer player) {
+        if (player.dimension != 0) return false;
+        World world = player.worldObj;
+        int x = MathHelper.floor_double(player.posX), y = MathHelper.floor_double(player.posY + player.getEyeHeight()), z = MathHelper.floor_double(player.posZ);
+        if (!loaded(world, x, z, x, z) || world.canBlockSeeTheSky(x, y, z)) return false;
+        return world.getHeightValue(x, z) - y <= 8 && underground(player);
+    }
     public static double[] find(EntityPlayer player, Sighting kind, boolean forced, boolean escalated) {
         if (kind == Sighting.WINDOW) return window(player, forced);
         World world = player.worldObj;
+        HauntingPresence presence = forced ? null : HauntingPresence.read(player);
         boolean cave = underground(player) || kind == Sighting.DWELLING || kind == Sighting.NIGHTMARE || kind == Sighting.CREEPING || kind == Sighting.WINDOW;
-        double[] best = null;
-        double bestScore = -Double.MAX_VALUE;
+        double[] cue = forced || kind == Sighting.CREEPING ? null : HauntingDirector.cue(player);
+        java.util.List<double[]> found = new java.util.ArrayList<double[]>(); // {x, y, z, score}
         for (int attempt = 0; attempt < (forced ? 48 : 32); attempt++) {
-            // Cardinal/eighth-turn samples find real corridors; later samples explore the rest of the horizon.
-            double angle = Math.toRadians(player.rotationYaw + (kind == Sighting.CREEPING ? 180
-                    : attempt < 8 ? attempt * 45 : forced ? (attempt / 2) * 17 * (attempt % 2 == 0 ? 1 : -1) : world.rand.nextInt(360)));
+            // Cardinal/eighth-turn samples find real corridors. Later natural samples lean toward where the
+            // player is looking (a figure nobody can see is a wasted encounter) while keeping some of the horizon.
+            double offset = kind == Sighting.CREEPING ? 180
+                    : attempt < 8 ? attempt * 45 : forced ? (attempt / 2) * 17 * (attempt % 2 == 0 ? 1 : -1)
+                    : world.rand.nextInt(10) < 6 ? world.rand.nextInt(141) - 70 : world.rand.nextInt(360);
+            double angle = Math.toRadians(player.rotationYaw + offset);
             double distance = kind.minDistance + (forced ? attempt % (kind.maxDistance - kind.minDistance + 1)
                     : world.rand.nextInt(kind.maxDistance - kind.minDistance + 1));
             if (escalated && kind == Sighting.STALKING) distance *= .8;
@@ -93,13 +105,63 @@ public final class HauntingPlacement {
                 if (cave && Math.abs(y - player.posY) > 5 || !valid(world, x + .5, y, z + .5)) continue;
                 HauntingPerception.SightLine line = HauntingPerception.line(world, HauntingPerception.eyes(player),
                         net.minecraft.util.Vec3.createVectorHelper(x + .5, y + 1.6, z + .5));
-                if (!line.clear) continue;
+                // A natural body either starts outside everyone's front hemisphere or behind actual cover.
+                // Hidden candidates need a short verified emergence route before they can be selected.
+                boolean hidden = !line.clear && !forced && (kind == Sighting.STALKING || kind == Sighting.LURKING)
+                        && HauntingCover.concealed(world, y, x + .5, z + .5);
+                if (!line.clear && !hidden || !forced && exposed(world, x + .5, y, z + .5)) continue;
                 double score = contextScore(player, kind, x, y, z) + (forced ? 0 : world.rand.nextDouble());
-                if (score > bestScore) { bestScore = score; best = new double[] {x + .5, y, z + .5}; }
+                if (presence != null) score += presence.score(player, x + .5, y, z + .5);
+                // A Lurker is a silhouette: roughly level with or above the viewer, with sky behind its head.
+                if (kind == Sighting.LURKING && y >= player.posY - 1 && world.canBlockSeeTheSky(x, y + 2, z)) score += 6;
+                if (cue != null) {
+                    double cx = cue[0] - player.posX, cz = cue[1] - player.posZ, px = x + .5 - player.posX, pz = z + .5 - player.posZ;
+                    double norm = Math.sqrt(cx * cx + cz * cz) * Math.sqrt(px * px + pz * pz);
+                    if (norm > .01) score += Math.max(0, (cx * px + cz * pz) / norm) * 10;
+                }
+                found.add(new double[] {x + .5, y, z + .5, score, hidden ? 1 : 0});
                 break;
             }
         }
-        return best;
+        if (found.isEmpty()) return null;
+        java.util.Collections.sort(found, new java.util.Comparator<double[]>() {
+            public int compare(double[] a, double[] b) { return Double.compare(b[3], a[3]); }
+        });
+        // Peeking from beside a trunk or rock edge is only worth the extra rays on the best few shots; it is also
+        // what makes a later slip behind cover possible.
+        if (!forced && (kind == Sighting.STALKING || kind == Sighting.LURKING))
+            for (int i = 0; i < Math.min(3, found.size()); i++) {
+                double[] point = found.get(i);
+                if (HauntingCover.route(world, point[0], point[1], point[2], player) != null) point[3] += 8;
+            }
+        java.util.Collections.sort(found, new java.util.Comparator<double[]>() {
+            public int compare(double[] a, double[] b) { return Double.compare(b[3], a[3]); }
+        });
+        int routes = 0;
+        for (double[] point : found) {
+            if (point[4] == 0) return new double[] {point[0], point[1], point[2]};
+            if (++routes > 3) continue;
+            double[] route = HauntingCover.emerge(world, point[0], point[1], point[2], player);
+            if (route != null) return new double[] {point[0], point[1], point[2], route[0], route[1], route[2]};
+        }
+        return null;
+    }
+    /** Conservative spawn/approach exclusion, wider than gaze recognition. Checks head and torso for every witness. */
+    static boolean exposed(World world, double x, double y, double z) {
+        for (Object object : world.playerEntities) {
+            EntityPlayer witness = (EntityPlayer) object;
+            if (!witness.isEntityAlive() || witness.getDistanceSq(x, y, z) > 128 * 128) continue;
+            if (witness.getDistanceSq(x, y, z) < 2 * 2) return true;
+            for (double height : new double[] {.8, 1.6}) {
+                net.minecraft.util.Vec3 eyes = HauntingPerception.eyes(witness);
+                net.minecraft.util.Vec3 target = net.minecraft.util.Vec3.createVectorHelper(x, y + height, z);
+                net.minecraft.util.Vec3 direction = net.minecraft.util.Vec3.createVectorHelper(x - eyes.xCoord,
+                        y + height - eyes.yCoord, z - eyes.zCoord).normalize();
+                if (witness.getLookVec().dotProduct(direction) > 0
+                        && HauntingPerception.line(world, eyes, target).clear) return true;
+            }
+        }
+        return false;
     }
     /** Preferences compose the shot, while validity/visibility remain hard gates. */
     static int contextScore(EntityPlayer player, Sighting kind, int x, int y, int z) {
@@ -157,6 +219,7 @@ public final class HauntingPlacement {
                         HauntingPerception.SightLine line = HauntingPerception.line(world, HauntingPerception.eyes(player),
                                 net.minecraft.util.Vec3.createVectorHelper(x + .5, y + 1.6, z + .5));
                         if (!line.clear || !line.glass) continue;
+                        if (!forced && exposed(world, x + .5, y, z + .5)) continue;
                         double score = 30 - length - beyond * .2 + contextScore(player, Sighting.STALKING, x, y, z);
                         if (score > bestScore) { bestScore = score; best = new double[] {x + .5, y, z + .5}; }
                         break;
