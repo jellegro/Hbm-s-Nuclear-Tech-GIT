@@ -1,8 +1,8 @@
 package com.usanaem.occultic_ntm.registry;
 
-import com.usanaem.occultic_ntm.block.BlockBlackSun;
+import com.usanaem.occultic_ntm.compat.thaumcraft.block.BlockBlackSun;
 import com.usanaem.occultic_ntm.block.BlockTarTrail;
-import com.usanaem.occultic_ntm.block.TileBlackSun;
+import com.usanaem.occultic_ntm.compat.thaumcraft.block.TileBlackSun;
 import com.usanaem.occultic_ntm.block.TileTarTrail;
 
 import cpw.mods.fml.common.registry.GameRegistry;

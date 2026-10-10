@@ -1,8 +1,12 @@
 package com.usanaem.occultic_ntm.compat.thaumcraft;
 
+import com.usanaem.occultic_ntm.compat.thaumcraft.aspect.OcculticAspects;
+import com.usanaem.occultic_ntm.compat.thaumcraft.research.BlackSunResearch;
+import com.usanaem.occultic_ntm.compat.thaumcraft.research.ImpossibleObservationResearch;
+
 import org.apache.logging.log4j.Logger;
 
-import com.usanaem.occultic_ntm.compat.thaumcraft.catalogue.CatalogueRegistry;
+import com.usanaem.occultic_ntm.compat.thaumcraft.aspect.catalogue.CatalogueRegistry;
 
 /** Invoked only after the common bootstrap checks configuration and mod presence. */
 public final class ThaumcraftCompat {

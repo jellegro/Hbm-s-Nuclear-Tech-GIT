@@ -4,10 +4,10 @@ import com.hbm.hazard.HazardData;
 import com.hbm.hazard.HazardSystem;
 import com.hbm.hazard.type.HazardTypeRadiation;
 import com.usanaem.occultic_ntm.OcculticNTM;
-import com.usanaem.occultic_ntm.item.ItemAbyssalCore;
-import com.usanaem.occultic_ntm.item.ItemAtramentousIngot;
-import com.usanaem.occultic_ntm.item.ItemAtramentousSlag;
-import com.usanaem.occultic_ntm.item.ItemTarbornEgg;
+import com.usanaem.occultic_ntm.compat.thaumcraft.item.ItemAbyssalCore;
+import com.usanaem.occultic_ntm.compat.thaumcraft.item.ItemAtramentousIngot;
+import com.usanaem.occultic_ntm.compat.thaumcraft.item.ItemAtramentousSlag;
+import com.usanaem.occultic_ntm.compat.witchery.item.ItemTarbornEgg;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.BlockDispenser;

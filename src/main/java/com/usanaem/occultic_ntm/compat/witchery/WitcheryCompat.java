@@ -1,5 +1,8 @@
 package com.usanaem.occultic_ntm.compat.witchery;
 
+import com.usanaem.occultic_ntm.compat.witchery.item.IrradiationPoppetRegistry;
+import com.usanaem.occultic_ntm.compat.witchery.item.RadiantChalk;
+import com.usanaem.occultic_ntm.compat.witchery.rites.OcculticRitualRegistry;
 import com.usanaem.occultic_ntm.config.IntegrationConfig;
 import org.apache.logging.log4j.Logger;
 
